@@ -82,7 +82,11 @@ async function sendConfirmationEmail(email: string, token: string, resendKey: st
       from: 'SUPDATE <noreply@sup.date>',
       to: [email],
       subject: 'Bitte bestätige deine Anmeldung bei SUPDATE',
-      text: `Hallo,\n\nbitte bestätige deine Anmeldung auf der SUPDATE Warteliste:\n\n${confirmUrl}\n\nFalls du dich nicht angemeldet hast, ignoriere diese E-Mail.\n\nDas SUPDATE-Team`,
+      headers: {
+        'List-Unsubscribe': `<https://sup.date/api/unsubscribe?token=${token}>`,
+        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+      },
+      text: `Hallo,\n\nbitte bestätige deine Anmeldung auf der SUPDATE Warteliste:\n\n${confirmUrl}\n\nFalls du dich nicht angemeldet hast, ignoriere diese E-Mail.\n\nAbmelden: https://sup.date/api/unsubscribe?token=${token}\n\nDas SUPDATE-Team`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -109,6 +113,7 @@ async function sendConfirmationEmail(email: string, token: string, resendKey: st
             <hr style="border: none; border-top: 1px solid #1a1a1a; margin: 32px 0;">
             <p style="color: #444; font-size: 12px; margin: 0;">
               Falls du dich nicht angemeldet hast, ignoriere diese E-Mail.<br>
+              <a href="https://sup.date/api/unsubscribe?token=${token}" style="color: #555;">Von der Warteliste abmelden</a><br>
               sup.date · © 2026
             </p>
           </div>
