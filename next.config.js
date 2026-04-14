@@ -3,18 +3,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/register',
-        destination: 'https://app.sup.date/register',
-        permanent: true,
-      },
-      {
-        source: '/login',
-        destination: 'https://app.sup.date/login',
-        permanent: true,
-      },
-      {
-        source: '/',
-        destination: 'https://app.sup.date',
+        source: '/:path*',
+        destination: 'https://app.sup.date/:path*',
         permanent: true,
       },
     ]
